@@ -1,3 +1,4 @@
 # DiscoveryE
-By AiJing Wu, Casilda Lewis, Jillian Genova and Vishnu Yarlagadda  
+FrontEnd: Jillian Genova and Vishnu Yarlagadda  
+BackEnd: AiJing Wu, Casilda Lewis  
 Connect users to small businesses
