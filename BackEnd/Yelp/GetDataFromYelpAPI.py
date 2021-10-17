@@ -106,3 +106,4 @@ if __name__ == '__main__':
     for i in range (0,20):
         get_data(i)
         load_json_write_csv(i)
+        
