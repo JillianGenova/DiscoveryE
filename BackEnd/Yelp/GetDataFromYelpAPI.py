@@ -102,7 +102,7 @@ def load_json_write_csv(i: int) -> None:
         df.to_csv(file, index=False, encoding='utf-8')
 
 if __name__ == '__main__':
-    '''Yelp API only returns up to 1,000 results and it doesn't allow more than 50 per request'''
+    '''Yelp API only returns up to 1,000 results (which is actually only 250 now) and it doesn't allow more than 50 per request'''
     for i in range (0,20):
         get_data(i)
         load_json_write_csv(i)
