@@ -1,6 +1,8 @@
 import requests
 import json
 import time
+import pandas as pd
+import csv
 
 class GooglePlaces(object):
     def __init__(self, apiKey):
@@ -40,8 +42,58 @@ class GooglePlaces(object):
         return place_details
 
 if __name__ == "__main__":
-   api = GooglePlaces("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
+    api = GooglePlaces("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
 
-   places = api.search_places_by_coordinate("43.06845719529392, -89.40208720228235", "1000", "restaurant")
+    places = api.search_places_by_coordinate("43.06845719529392, -89.40208720228235", "1000", "restaurant")
 
-   print(places)
+    fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity', 'photo']
+
+    for place in places:
+        details = api.get_place_details(place['place_id'], fields)
+        try:
+            business_status = details['result']['business_status']
+        except KeyError:
+            business_status = ""
+    
+        try:
+            name = details['result']['name']
+        except KeyError:
+            name = ""
+    
+        try:
+            address = details['result']['formatted_address']
+        except KeyError:
+            address = ""
+    
+        try:
+            url = details['result']['url']
+        except KeyError:
+            url = ""
+    
+        try:
+            vicinity = details['result']['vicinity']
+        except KeyError:
+            vicinity = ""
+
+        try:
+            photo = details['result']['photo']
+        except KeyError:
+            photo = ""
+        print("===================PLACE===================")
+        print("Name:", name)
+        print("Address:", address)
+        print("Business status:", business_status)
+        print("URL:", url)
+        print("Vicinity:", vicinity)
+        print("Photo:", photo, "\n")
+        
+
+
+    # with open('output.csv', 'w') as output:
+    #     writer = csv.writer(output)
+    #     for key, value in details.items():
+    #         writer.writerow([key, value])
+
+    # df = pd.DataFrame(data=details)
+    # df = (df.T)
+    # df.to_excel('details.xlsx')
