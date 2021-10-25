@@ -9,6 +9,11 @@ class GooglePlaces(object):
         super(GooglePlaces, self).__init__()
         self.apiKey = apiKey
 
+    # To get place details, you need to search for places and get the place IDs first. 
+    # Fortunately there is an API endpoint for this with which you will send a GPS Coordinate and a radius to the API and it 
+    # will return the nearby places by your defined radius. Also there is a filter called 
+    # "types" which can filter out only the types of the places that you are interested in 
+    # like "school" or "restaurant"
     def search_places_by_coordinate(self, location, radius, types):
         endpoint_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         places = []
@@ -48,11 +53,9 @@ if __name__ == "__main__":
 
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity', 'photo']
 
-    details = []
-    i = 0
     for place in places:
-        details[i] = api.get_place_details(place['place_id'], fields)
-        i+=1
+        details = api.get_place_details(place['place_id'], fields)
+
         try:
             business_status = details['result']['business_status']
         except KeyError:
