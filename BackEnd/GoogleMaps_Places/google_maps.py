@@ -48,8 +48,11 @@ if __name__ == "__main__":
 
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity', 'photo']
 
+    details = []
+    i = 0
     for place in places:
-        details = api.get_place_details(place['place_id'], fields)
+        details[i] = api.get_place_details(place['place_id'], fields)
+        i+=1
         try:
             business_status = details['result']['business_status']
         except KeyError:
