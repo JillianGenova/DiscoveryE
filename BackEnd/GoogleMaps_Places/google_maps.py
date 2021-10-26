@@ -4,9 +4,9 @@ import time
 import pandas as pd
 import csv
 
-class GooglePlaces(object):
+class GoogleMaps(object):
     def __init__(self, apiKey):
-        super(GooglePlaces, self).__init__()
+        super(GoogleMaps, self).__init__()
         self.apiKey = apiKey
 
     # To get place details, you need to search for places and get the place IDs first. 
@@ -46,10 +46,30 @@ class GooglePlaces(object):
         place_details =  json.loads(res.content)
         return place_details
 
-if __name__ == "__main__":
-    api = GooglePlaces("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
+    def extract_lat_long_via_address(self, address_or_zipcode):
+        lat, lng = None, None
+        base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+        endpoint_url = f"{base_url}?address={address_or_zipcode}&key={self.apiKey}"
+        r = requests.get(endpoint_url)
+        if r.status_code not in range(200, 299):
+            return None, None
+        try:
+            results = r.json()['results'][0]
+            lat = results['geometry']['location']['lat']
+            lng = results['geometry']['location']['lng']
+        except:
+            pass
+        return (lat, lng)
 
-    places = api.search_places_by_coordinate("43.06845719529392, -89.40208720228235", "1000", "restaurant")
+if __name__ == "__main__":
+    api = GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
+
+    address = input("Enter your address or a zipcode: ")
+
+    (lat, lng) = api.extract_lat_long_via_address(address)
+    coordinates = str(lat) + ", " + str(lng)
+
+    places = api.search_places_by_coordinate(coordinates, "1000", "restaurant")
 
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity', 'photo']
 
