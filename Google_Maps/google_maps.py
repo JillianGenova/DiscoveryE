@@ -3,16 +3,21 @@ import json
 import time
 import csv
 
+# This class uses the Google Places and Geolocation API
+# Class variables:  apiKey - The api key that confirms credentials
+# Class functions:  search_places_by_coordinate
+#                   get_place_details
+#                   extract_lat_long_via_address
 class GoogleMaps(object):
     def __init__(self, apiKey):
         super(GoogleMaps, self).__init__()
         self.apiKey = apiKey
 
-    # To get place details, you need to search for places and get the place IDs first. 
-    # Fortunately there is an API endpoint for this with which you will send a GPS Coordinate and a radius to the API and it 
-    # will return the nearby places by your defined radius. Also there is a filter called 
-    # "types" which can filter out only the types of the places that you are interested in 
-    # like "school" or "restaurant"
+    # This function finds the closest places and gets place IDs.
+    # Arguments:    location -  coordinates of the user
+    #               radius -    radius of search in meters
+    #               types -     categories of small businesses
+    # Returns :     places -    list of places with place_ids in json format
     def search_places_by_coordinate(self, location, radius, types):
         endpoint_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         places = []
@@ -34,6 +39,10 @@ class GoogleMaps(object):
             time.sleep(2)
         return places
 
+    # This function gets details abput a particular place using place ids
+    # Arguments :   place_id -      unique identification of each place
+    #               fields -        various details required. Eg. name, address, photo, etc.
+    # Returns :     place_details - required field details of a particular place 
     def get_place_details(self, place_id, fields):
         endpoint_url = "https://maps.googleapis.com/maps/api/place/details/json"
         params = {
@@ -45,6 +54,9 @@ class GoogleMaps(object):
         place_details =  json.loads(res.content)
         return place_details
 
+    # This function converts addresses to coordinates
+    # Arguments :   address_or_zipcode -    address or zipcode to convert
+    # Returns :     (lat, lng) -    coordinates
     def extract_lat_long_via_address(self, address_or_zipcode):
         lat, lng = None, None
         base_url = "https://maps.googleapis.com/maps/api/geocode/json"
