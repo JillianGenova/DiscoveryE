@@ -72,11 +72,10 @@ def getBusinessStatus(coordinates):
     return temp[0]
 
 
-def getBusinessCoordinates(name, category_1):
+def getBusinessCoordinates(name):
     # output: [longitude, lantitude]
-    query = "SELECT longitude, lantitude FROM business WHERE name = ? AND category_1 = ?"
-    data = [name, category_1]
-    cursor.execute(query, data)
+    query = "SELECT longitude, lantitude FROM business WHERE name = " + name
+    cursor.execute(query)
     temp = cursor.fetchone()
     return [temp[0],temp[1]]
 
@@ -90,9 +89,32 @@ def getBusinessInfo(coordinates):
     return temp
 
 
+def getCategoryNames(category_1):
+    if category_1 == 'all':
+        query = "SELECT name FROM business"
+    else:
+        query = "SELECT name FROM business WHERE category_1 = \"" + category_1 + "\""
+    cursor.execute(query)
+    temp = cursor.fetchall()
+    return temp
+
+
+def getCategoryCoordinates(category_1):
+    if category_1 == 'all':
+        query = "SELECT longitude, lantitude FROM business"
+    else:
+        query = "SELECT longitude, lantitude FROM business WHERE category_1 = \"" + category_1 + "\""
+    cursor.execute(query)
+    temp = cursor.fetchall()
+    return temp
+
+
 def getCategoryInfo(category_1):
     # output: [business[0], business[1], ...]
-    query = "SELECT * FROM business WHERE category_1 = \"" + category_1 + "\""
+    if category_1 == 'all':
+        query = "SELECT * FROM business"
+    else:
+        query = "SELECT * FROM business WHERE category_1 = \"" + category_1 + "\""
     cursor.execute(query)
     temp = cursor.fetchall()
     return temp
@@ -110,8 +132,8 @@ def deleteBusiness(name, category_1):
     cursor.execute(delete, (name, category_1))
 
 
-def insertCoordinates(name, category_1):
-    coordinates = getBusinessCoordinates(name, category_1)
-    if coordinates[0] == None or coordinates[0] == '':
+def insertCoordinates(name):
+    coordinates = getBusinessCoordinates(name)
+    if coordinates[0] == None or coordinates[0] == "":
         coordinates = [1,2] #call Casilda's function
         setBusinessCoordinates(name, coordinates[0], coordinates[1])
