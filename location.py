@@ -20,15 +20,15 @@ def checkCoordinatesExistence(category_1):
             databaseQuery.insertCoordinates(name)
 
 
-def getCoordinates(category_1):
+def getBusinessCoordinates(category_1):
     checkCoordinatesExistence(category_1)
     listCoordinates = databaseQuery.getCategoryCoordinates(category_1)
     return listCoordinates
 
 
 def getDistance(businessCoordinates):
-    print("Use the calculateDistance() with the help of GoogleMap API")
-    # calculateDistance()
+    # TO-DO: call calculateDistance(userCoordinates, businessCoordinates)
+    print("TO-DO")
 
 
 def sortDistance(listBusiness):
@@ -40,10 +40,12 @@ def outputTopN(listBusiness):
     return listBusiness[:N]
 
 
-def locationFeatureDriver(category_1):
+def locationFeatureDriver(address, category_1):
+    # TO-DO: call getUserCoordinates(address)
+    
     # output: [business0, business1, ..., business19],
     # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, longitude, lantitude]
-    listBusinessCoordinates = getCoordinates(category_1)
+    listBusinessCoordinates = getBusinessCoordinates(category_1)
     listBusinessDistances = []
     for businessCoordinates in listBusinessCoordinates:
         listBusinessDistances.append(getDistance(businessCoordinates))
