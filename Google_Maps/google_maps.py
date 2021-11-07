@@ -108,7 +108,7 @@ if __name__ == "__main__":
             (business_lat, business_lng) = api.extract_lat_long_via_address(details['result']['formatted_address'])
             distance = distance_between_coordinates((user_lat, user_lng), (business_lat, business_lng))
 
-            print("Distance of ", distance, "miles")
+            print("Distance of", distance, "miles")
             
             dw.writerow(details['result'])
             
