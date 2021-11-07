@@ -74,6 +74,9 @@ class GoogleMaps(object):
             pass
         return (lat, lng)
 
+# This function calculates distances between two coordinates
+# Arguments :   coord_1, coord_2 -  two tuples containing latitiude and longitude
+# Returns :     distance -          distance in miles
 def distance_between_coordinates(coord_1, coord_2):
     distance = geopy.distance.distance(coord_1, coord_2).miles
     return distance
