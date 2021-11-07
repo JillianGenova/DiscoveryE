@@ -2,6 +2,8 @@ import requests
 import json
 import time
 import csv
+# run pip install geopy for this!
+import geopy.distance
 
 # This class uses the Google Places and Geolocation API
 # Class variables:  apiKey - The api key that confirms credentials
@@ -72,25 +74,36 @@ class GoogleMaps(object):
             pass
         return (lat, lng)
 
+def distance_between_coordinates(coord_1, coord_2):
+    distance = geopy.distance.distance(coord_1, coord_2).miles
+    return distance
+
 if __name__ == "__main__":
     api = GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
 
     address = input("Enter your address or a zipcode: ")
 
-    (lat, lng) = api.extract_lat_long_via_address(address)
-    coordinates = str(lat) + ", " + str(lng)
+    (user_lat, user_lng) = api.extract_lat_long_via_address(address)
+    user_coord = str(user_lat) + ", " + str(user_lng)
 
-    places = api.search_places_by_coordinate(coordinates, "1000", "restaurant")
+    type = input("Enter a category: ")
+
+    places = api.search_places_by_coordinate(user_coord, "1000", type)
 
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity']
 
-    with open('restaurants.csv', 'a') as f:
+    with open(type+".csv", 'w') as f:
 
         dw = csv.DictWriter(f, delimiter = ',', fieldnames=fields)
         dw.writeheader()
 
         for place in places:
             details = api.get_place_details(place['place_id'], fields)
+
+            (business_lat, business_lng) = api.extract_lat_long_via_address(details['result']['formatted_address'])
+            distance = distance_between_coordinates((user_lat, user_lng), (business_lat, business_lng))
+
+            print("Distance of ", distance, "miles")
             
             dw.writerow(details['result'])
             
