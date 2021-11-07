@@ -76,15 +76,16 @@ if __name__ == "__main__":
     api = GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
 
     address = input("Enter your address or a zipcode: ")
+    businessType = input("Enter the type of business you're looking for: ")
 
     (lat, lng) = api.extract_lat_long_via_address(address)
     coordinates = str(lat) + ", " + str(lng)
 
-    places = api.search_places_by_coordinate(coordinates, "1000", "restaurant")
+    places = api.search_places_by_coordinate(coordinates, "1000", businessType)
 
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity']
 
-    with open('restaurants.csv', 'a') as f:
+    with open(businessType + '.csv', 'a') as f:
 
         dw = csv.DictWriter(f, delimiter = ',', fieldnames=fields)
         dw.writeheader()
