@@ -76,6 +76,7 @@ if __name__ == "__main__":
     api = GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
 
     address = input("Enter your address or a zipcode: ")
+    
     businessType = input("Enter the type of business you're looking for: ")
 
     (lat, lng) = api.extract_lat_long_via_address(address)
