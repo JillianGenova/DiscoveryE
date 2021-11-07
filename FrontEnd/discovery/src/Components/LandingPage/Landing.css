@@ -1,0 +1,21 @@
+.homePage {
+    text-align: center;
+    margin-top: 20%;
+}
+
+.searchBox {
+    width: 40%;
+    margin-top: 20%;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 32px;
+    gap: 10px;
+}
+
+.button {
+    background: orange;
+}
