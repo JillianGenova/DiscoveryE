@@ -5,7 +5,6 @@ import databaseQuery
 import pandas as pd
 import google_maps as map
 
-
 api = map.GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0") # API Credentials
 N = 20  # return the top-20 closest businesses
 
