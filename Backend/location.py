@@ -45,6 +45,7 @@ def outputTopN(listBusiness):
 
 def locationFeatureDriver(address, category_1): 
     # input: userAddress and businessCategory
+    # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose ONE from the list)
     # output: [business0, business1, ..., business19],
     # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
     userCoordinates = api.extract_lat_long_via_address(address)
