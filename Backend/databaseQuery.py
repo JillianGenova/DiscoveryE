@@ -143,3 +143,4 @@ def deleteBusiness(name, category_1):
 
 def insertCoordinates(name, coordinates):
     setBusinessCoordinates(name, coordinates[0], coordinates[1])
+    
