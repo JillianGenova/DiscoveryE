@@ -1,11 +1,13 @@
-# DiscoveryE
-FrontEnd: Jillian Genova, Vishnu Yarlagadda  
-BackEnd: AiJing Wu, Casilda Lewis  
-Connect users to small businesses  
+# Location Feature  
+Contents include:  
+1. Grasp user coordinates (based on the input) from Google Map API  
+2. Fetch business coordinates from the database  
+3. Calculate the distances between two sets of coordinates  
+4. Sort the distances  
+5. Output the closest ones  
 
-Contribution Model:  
-Step1: Make sure main branch is updated ("git checkout main" // "git pull")  
-Step2: Create a feature branch out side the main branch (git checkout -b feature-branch-name)  
-Step3: Make changes according to the user stories  
-Step4: Push up the branch ("git add ." // "git commit -m "commit-message"" // "git push")  
-Step5: Pull request open (Reviewers - whole team reviewing every Sunday meeting)  
+TO-DO:  
+call getCoordinates() in databaseQuery.insertCoordinates(name, category_1)  
+call getCoordinates() in location.locationFeatureDriver(address, category_1)  
+call calculateDistance() in location.getDistance(businessCoordinates)  
+find outside packages for sorting (bypass the limitation of python supporting only 300 data)  
