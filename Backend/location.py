@@ -4,9 +4,10 @@ from pandas.core import series
 import databaseQuery
 import pandas as pd
 import google_maps as map
+import math
 
 api = map.GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0") # API Credentials
-N = 20  # return the top-20 closest businesses
+N = 20  # return the top-N closest businesses
 
 
 def checkCoordinatesExistence(category_1):
@@ -43,9 +44,8 @@ def outputTopN(listBusiness):
     return listBusiness[:N]
 
 
-def locationFeatureDriver(address, category_1): 
+def locationFeatureForOneCategory(address, category_1):
     # input: userAddress and businessCategory
-    # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose ONE from the list)
     # output: [business0, business1, ..., business19],
     # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
     userCoordinates = api.extract_lat_long_via_address(address)
@@ -62,3 +62,18 @@ def locationFeatureDriver(address, category_1):
     for business in selectedBusiness:
         selectedBusinessInfo.append(databaseQuery.getBusinessInfo([business[0],business[1]]))
     return selectedBusinessInfo
+
+def locationFeatureDriver(address, categories): 
+    # input: userAddress and businessCategories[],
+    # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose one or multiple from this list)
+    # output: [business0, business1, ..., business19],
+    # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
+    if len(categories) == 1:
+        N = 20
+        return locationFeatureForOneCategory(address, categories[0])
+    else:
+        N = math.ceil(20 / len(categories))
+        selectedBusinesses = []
+        for category in categories:
+            selectedBusinesses.append(locationFeatureForOneCategory(address, category))
+        return selectedBusinesses
