@@ -2,11 +2,10 @@ import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import Landing from './Components/LandingPage/Landing'
-import Search from './Components/Search'
+import Search from './Components/SearchPage/Search'
 
 function App() {
     return (

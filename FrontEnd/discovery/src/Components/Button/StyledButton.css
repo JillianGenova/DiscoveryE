@@ -1,0 +1,19 @@
+.unselectedClass {
+    background-color: white;
+    color:orange;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.selectedClass {
+    background-color: orange;
+    color:white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
