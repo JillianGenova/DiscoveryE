@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
 import "./Landing.css";
 import logo from "./Logo.png";
@@ -39,7 +39,7 @@ const Landing = () => {
                     onKeyDown={(e) => {
                         //13 for enter
                         if (e.keyCode == 13) {
-                            history.push("/results", { params:search });
+                            history.push("/results", { search });
                         }
                     }
                 }
