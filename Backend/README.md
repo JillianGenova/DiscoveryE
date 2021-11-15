@@ -13,6 +13,6 @@
 
 # Final product  
 1. business.db -- all the data in the database (full database with all categories)  
-2. google_map.py --  
+2. google_map.py --  pulling data from the Google Maps API, functions that extract/manipulate geographic coordinates
 3. databaseQuery.py -- all codes for database query, insert and delete (including some additional functions for extensional use)  
 4. location.py -- all codes for location feature (to use this feature, you only need to call locationFeatureDriver(address, category_1))  
