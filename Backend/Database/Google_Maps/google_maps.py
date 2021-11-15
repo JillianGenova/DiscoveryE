@@ -81,9 +81,8 @@ def distance_between_coordinates(coord_1, coord_2):
     distance = geopy.distance.distance(coord_1, coord_2).miles
     return distance
 
-if __name__ == "__main__":
-    api = GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")
 
+def get_user_details(api):
     address = input("Enter your address or a zipcode: ")
 
     (user_lat, user_lng) = api.extract_lat_long_via_address(address)
@@ -92,8 +91,12 @@ if __name__ == "__main__":
     type = input("Enter a category: ")
 
     places = api.search_places_by_coordinate(user_coord, "1000", type)
-
     fields = ['name', 'formatted_address', 'business_status', 'url', 'vicinity']
+
+    store_business_details(api, fields, places, user_lat, user_lng)
+
+
+def store_business_details(api, fields, places, user_lat, user_lng):
 
     with open(type+".csv", 'w') as f:
 
