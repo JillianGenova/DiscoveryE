@@ -4,3 +4,4 @@
    * Google Map: Casilda Lewis  
    * SQL: AiJing Wu  
    * Flask: Vishnu Yarlagadda, Casilda Lewis  
+* Mentors: Trace Carrasco, Cassidy Schneider, and Tyler Luedtke
