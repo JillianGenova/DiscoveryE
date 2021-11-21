@@ -41,7 +41,10 @@ def sortDistance(listBusiness):
 
 
 def outputTopN(listBusiness):
-    return listBusiness[:N]
+    if len(listBusiness) >= N:
+        return listBusiness[:N]
+    else:
+        return listBusiness
 
 
 def locationFeatureForOneCategory(address, category_1):
