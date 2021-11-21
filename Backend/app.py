@@ -1,4 +1,4 @@
-import time
+import time, json
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -8,9 +8,10 @@ temp = 123
 @app.route("/search", methods=["POST"])
 def search_addr():
     data = request.get_json()
-    print(data)
-    temp = 333
-    return data
+    dataStr = json.dumps(data)
+    dataDict = json.loads(dataStr)
+    print(dataDict['location']['state']['search'])
+    return dataDict['location']['state']['search']
 
 @app.route('/time')
 def get_current_time():
