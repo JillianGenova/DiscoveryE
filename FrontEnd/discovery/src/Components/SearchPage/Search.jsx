@@ -6,7 +6,6 @@ import Marker from "../Map/Marker/Marker.jsx"
 import BusinessButton from "./BusinessButton"
 
 const Search = () => {
-    // "AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0"
     const location = useLocation(); // will need to get lat and long of user from this 
 
     const [businesses, setBusinesses] = useState(["Michael Angelo's Coffee House", "Ian's Pizza", "Fair Trade Coffee"])
@@ -42,7 +41,7 @@ const Search = () => {
             </div>
             <div style={{ height: '100vh', width: '100%'}}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0" }}
+                    bootstrapURLKeys={{ key: "TO ADD" }}
                     defaultCenter={{
                         lat: 43.0731,
                         lng: -89.4012
