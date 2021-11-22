@@ -1,0 +1,9 @@
+.businessButton {
+    background-color: white;
+    color:orange;
+    border: none;
+    padding: 25px 40px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
