@@ -6,29 +6,32 @@ import pandas as pd
 import google_maps as map
 import math
 
-api = map.GoogleMaps("AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0") # API Credentials
-N = 20  # return the top-N closest businesses
+api = map.GoogleMaps(
+    "AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0")  # API Credentials
+Num = 20  # parameter for N
 
 
 def checkCoordinatesExistence(category_1):
     flag = True
     names = databaseQuery.getCategoryNames(category_1)
     listCoordinates = databaseQuery.getCategoryCoordinates(category_1)
-    for i in range (0,len(names)):
+    for i in range(0, len(names)):
         coordinates = listCoordinates[i]
         if (coordinates[0] == None or coordinates[0] == ''):
             flag = False
         if flag == False:
-            name = names[i][0] # names[i] will return a "list" like (name)
-            coordinates = api.extract_lat_long_via_address(databaseQuery.getBusinessAddressFromName(name))
+            name = names[i][0]  # names[i] will return a "list" like (name)
+            coordinates = api.extract_lat_long_via_address(
+                databaseQuery.getBusinessAddressFromName(name))
             databaseQuery.insertCoordinates(name, coordinates)
             flag = True
 
 
 def getBusinessCoordinates(category_1):
     checkCoordinatesExistence(category_1)
-    listCoordinates = databaseQuery.getCategoryCoordinates(category_1)
-    return listCoordinates
+    listNameAndCoordinates = databaseQuery.getCategoryNameAndCoordinates(
+        category_1)
+    return listNameAndCoordinates
 
 
 def getDistance(userCoordinates, businessCoordinates):
@@ -36,47 +39,66 @@ def getDistance(userCoordinates, businessCoordinates):
 
 
 def sortDistance(listBusiness):
-    sorted(listBusiness, key=lambda distance: listBusiness[2])
-    return listBusiness
+    # sort the list by the third column (distance)
+    return sorted(listBusiness, key=lambda row: row[-1])
 
 
-def outputTopN(listBusiness):
+def outputTopN(N, listBusiness):
     if len(listBusiness) >= N:
         return listBusiness[:N]
     else:
         return listBusiness
 
 
-def locationFeatureForOneCategory(address, category_1):
+def locationFeatureForOneCategory(N, address, category_1, selectedBusinessInfo):
     # input: userAddress and businessCategory
     # output: [business0, business1, ..., business19],
-    # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
+    # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude]
     userCoordinates = api.extract_lat_long_via_address(address)
-    listBusinessCoordinates = getBusinessCoordinates(category_1)
+    listBusinessNameAndCoordinates = getBusinessCoordinates(category_1)
     listBusinessDistances = []
-    for businessCoordinates in listBusinessCoordinates:
-        listBusinessDistances.append(getDistance(userCoordinates, businessCoordinates))
-    df = pd.DataFrame(listBusinessCoordinates, columns=['lantitude', 'longitude'])
+    for businessNameAndCoordinates in listBusinessNameAndCoordinates:
+        listBusinessDistances.append(getDistance(
+            userCoordinates, [businessNameAndCoordinates[1], businessNameAndCoordinates[2]]))
+    df = pd.DataFrame(listBusinessNameAndCoordinates, columns=['name',
+                      'latitude', 'longitude'])
     series = pd.Series(listBusinessDistances)
     df['distance'] = series.values
-    selectedBusiness = outputTopN(sortDistance(df.values.tolist())) # [lantitude, longitude, distance]
-    
-    selectedBusinessInfo = []
-    for business in selectedBusiness:
-        selectedBusinessInfo.append(databaseQuery.getBusinessInfo([business[0],business[1]]))
-    return selectedBusinessInfo
+    # [latitude, longitude, distance]
+    selectedBusiness = outputTopN(N, sortDistance(df.values.tolist()))
 
-def locationFeatureDriver(address, categories): 
+    for business in selectedBusiness:
+        # add distance to businessInfo tuple
+        businessData = databaseQuery.getBusinessInfoByNameAndCoordinates(
+            business[0], [business[1], business[2]]) + (business[-1],)
+        selectedBusinessInfo.append(businessData)
+
+
+def locationFeatureDriver(address, categories):
     # input: userAddress and businessCategories[],
-    # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose one or multiple from this list)
+    # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose one or multiple from this list),
+    # eg. locationFeatureDriver("2 E Main St, Madison, WI 53702", ["leisure"])
     # output: [business0, business1, ..., business19],
-    # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
+    # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude, distance]
+    selectedBusinesses = []
     if len(categories) == 1:
-        N = 20
-        return locationFeatureForOneCategory(address, categories[0])
+        N = Num
+        return locationFeatureForOneCategory(N, address, categories[0], selectedBusinesses)
     else:
-        N = math.ceil(20 / len(categories))
-        selectedBusinesses = []
+        N = math.ceil(Num / len(categories))
         for category in categories:
-            selectedBusinesses.append(locationFeatureForOneCategory(address, category))
+            locationFeatureForOneCategory(
+                N, address, category, selectedBusinesses)
+        # sort the selectedBusinesses by distance
+        selectedBusinesses.sort(key=lambda row: row[-1])
         return selectedBusinesses
+
+
+def printer(list):
+    for element in list:
+        print(element)
+
+
+if __name__ == "__main__":
+    printer(locationFeatureDriver("2 E Main St, Madison, WI 53702", [
+        "food", "clothes"]))
