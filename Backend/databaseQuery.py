@@ -37,63 +37,73 @@ def setBusinessCategories(name, category_1, category_2):
     connection.commit()
 
 
-def setBusinessCoordinates(name, lantitude, longitude):
-    query = "UPDATE business SET lantitude = CAST(? as real), longitude = CAST(? as real) WHERE name = CAST(? as text)"
-    data = (lantitude, longitude, name)
+def setBusinessCoordinates(name, latitude, longitude):
+    query = "UPDATE business SET latitude = CAST(? as real), longitude = CAST(? as real) WHERE name = CAST(? as text)"
+    data = (latitude, longitude, name)
     cursor.execute(query, data)
     connection.commit()
 
 
 def getBusinessName(coordinates):
-    query = "SELECT name FROM business WHERE lantitude = ? AND longitude = ?"
+    query = "SELECT name FROM business WHERE latitude = ? AND longitude = ?"
     cursor.execute(query, coordinates)
-    temp = cursor.fetchone() # fetch() will always return a list
+    temp = cursor.fetchone()  # fetch() will always return a list
     return temp[0]
 
 
 def getBusinessAddressFromName(name):
     name = '\"' + name + '\"'
     query = "SELECT formatted_address FROM business WHERE name = " + name
-    cursor.execute(query) # cannot directly put name as data, must be (name) <- as a list
+    # cannot directly put name as data, must be (name) <- as a list
+    cursor.execute(query)
     temp = cursor.fetchone()
     return temp[0]
 
 
 def getBusinessAddressFromCoordinates(coordinates):
-    query = "SELECT formatted_address FROM business WHERE lantitude = ? AND longitude = ?"
+    query = "SELECT formatted_address FROM business WHERE latitude = ? AND longitude = ?"
     cursor.execute(query, coordinates)
     temp = cursor.fetchone()
     return temp[0]
 
 
 def getBusinessURL(coordinates):
-    query = "SELECT url FROM business WHERE lantitude = ? AND longitude = ?"
+    query = "SELECT url FROM business WHERE latitude = ? AND longitude = ?"
     cursor.execute(query, coordinates)
     temp = cursor.fetchone()
     return temp[0]
 
 
 def getBusinessStatus(coordinates):
-    query = "SELECT business_status FROM business WHERE lantitude = ? AND longitude = ?"
+    query = "SELECT business_status FROM business WHERE latitude = ? AND longitude = ?"
     cursor.execute(query, coordinates)
     temp = cursor.fetchone()
     return temp[0]
 
 
 def getBusinessCoordinates(name):
-    # output: [lantitude, longitude]
+    # output: [latitude, longitude]
     name = '\"' + name + '\"'
-    query = "SELECT lantitude, longitude FROM business WHERE name = " + name
+    query = "SELECT latitude, longitude FROM business WHERE name = " + name
     cursor.execute(query)
     temp = cursor.fetchone()
-    return [temp[0],temp[1]]
+    return [temp[0], temp[1]]
 
 
 def getBusinessInfo(coordinates):
-    # input: [lantitude, longitude]
-    # output: [name, formatted_address, business_status, url, vicinity, category_1, category_2, lantitude, longitude]
-    query = "SELECT * FROM business WHERE lantitude = ? AND longitude = ?"
+    # input: [latitude, longitude]
+    # output: [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude]
+    query = "SELECT * FROM business WHERE latitude = ? AND longitude = ?"
     cursor.execute(query, coordinates)
+    temp = cursor.fetchone()
+    return temp
+
+
+def getBusinessInfoByNameAndCoordinates(name, coordinates):
+    # input: [latitude, longitude]
+    # output: [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude]
+    query = "SELECT * FROM business WHERE name = ? AND latitude = ? AND longitude = ?"
+    cursor.execute(query, [name, coordinates[0], coordinates[1]])
     temp = cursor.fetchone()
     return temp
 
@@ -110,9 +120,20 @@ def getCategoryNames(category_1):
 
 def getCategoryCoordinates(category_1):
     if category_1 == 'all':
-        query = "SELECT lantitude, longitude FROM business"
+        query = "SELECT latitude, longitude FROM business"
     else:
-        query = "SELECT lantitude, longitude FROM business WHERE category_1 = \"" + category_1 + "\""
+        query = "SELECT latitude, longitude FROM business WHERE category_1 = \"" + category_1 + "\""
+    cursor.execute(query)
+    temp = cursor.fetchall()
+    return temp
+
+
+def getCategoryNameAndCoordinates(category_1):
+    if category_1 == 'all':
+        query = "SELECT name, latitude, longitude FROM business"
+    else:
+        query = "SELECT name, latitude, longitude FROM business WHERE category_1 = \"" + \
+            category_1 + "\""
     cursor.execute(query)
     temp = cursor.fetchall()
     return temp
@@ -143,4 +164,7 @@ def deleteBusiness(name, category_1):
 
 def insertCoordinates(name, coordinates):
     setBusinessCoordinates(name, coordinates[0], coordinates[1])
-    
+
+
+if __name__ == "__main__":
+    print(getBusinessInfo([43.0775319, -89.38173010000001]))
