@@ -45,8 +45,8 @@ function Search() {
     // }, [])
 
     return (
-        //<h2>{location.state.params}</h2>
-        //<h2>The current time is {msg}.</h2>
+        <><h2>{location.state.params}</h2></>
+        /*
         <>
             <div class="topnav">
                 <a class="active" href="#home">Home</a>
@@ -84,6 +84,7 @@ function Search() {
                 </GoogleMapReact>
             </div>
         </>
+        */
 
     );
 }

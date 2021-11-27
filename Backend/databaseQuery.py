@@ -5,7 +5,7 @@ import pandas as pd
 import google_maps as map
 
 db = 'business.db'
-connection = sqlite3.connect('business.db')
+connection = sqlite3.connect('business.db', check_same_thread=False)
 cursor = connection.cursor()
 
 

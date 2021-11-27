@@ -4,11 +4,23 @@ import { useLocation } from "react-router-dom";
 import "./Search.css"
 import Marker from "../Map/Marker/Marker.jsx"
 import BusinessButton from "./BusinessButton"
+import axios from "axios";
 
 const Search = () => {
     const location = useLocation(); // will need to get lat and long of user from this 
-
+    const [msg, setMsg] = useState('');
     const [businesses, setBusinesses] = useState(["Michael Angelo's Coffee House", "Ian's Pizza", "Fair Trade Coffee"])
+
+    axios.post('http://localhost:3000/search', {location})
+            .then(function(response){
+                console.log(response);
+                setMsg(response.data)
+       //Perform action based on response
+        })
+        .catch(function(error){
+            console.log(error);
+       //Perform action based on error
+        });
 
     // to get data:
     // const fetchPlaces = async () => {
@@ -23,7 +35,8 @@ const Search = () => {
     // }, [])
 
     return (
-        //<h2>{location.state.params}</h2>
+        <><h2>{msg}</h2></>
+        /*
         <>
             <div class="topnav">
                 <a class="active" href="#home">Home</a>
@@ -61,7 +74,7 @@ const Search = () => {
                 </GoogleMapReact>
             </div>
         </>
-
+        */
     );
 }
 
