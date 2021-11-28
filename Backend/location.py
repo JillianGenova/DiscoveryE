@@ -72,7 +72,7 @@ def locationFeatureForOneCategory(N, address, category_1, selectedBusinessInfo):
         businessData = databaseQuery.getBusinessInfoByNameAndCoordinates(
             business[0], [business[1], business[2]]) + (business[-1],)
         selectedBusinessInfo.append(businessData)
-    
+
     return selectedBusinessInfo
 
 
@@ -82,6 +82,7 @@ def locationFeatureDriver(address, categories):
     # eg. locationFeatureDriver("2 E Main St, Madison, WI 53702", ["leisure"])
     # output: [business0, business1, ..., business19],
     # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude, distance]
+    # Note: distance is in miles
     selectedBusinesses = []
     if len(categories) == 1:
         N = Num
