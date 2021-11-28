@@ -72,6 +72,8 @@ def locationFeatureForOneCategory(N, address, category_1, selectedBusinessInfo):
         businessData = databaseQuery.getBusinessInfoByNameAndCoordinates(
             business[0], [business[1], business[2]]) + (business[-1],)
         selectedBusinessInfo.append(businessData)
+    
+    return selectedBusinessInfo
 
 
 def locationFeatureDriver(address, categories):
@@ -87,7 +89,7 @@ def locationFeatureDriver(address, categories):
     else:
         N = math.ceil(Num / len(categories))
         for category in categories:
-            locationFeatureForOneCategory(
+            selectedBusinesses = locationFeatureForOneCategory(
                 N, address, category, selectedBusinesses)
         # sort the selectedBusinesses by distance
         selectedBusinesses.sort(key=lambda row: row[-1])
