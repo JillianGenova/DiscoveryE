@@ -5,11 +5,17 @@ import "./Search.css"
 import Marker from "../Map/Marker/Marker.jsx"
 import BusinessButton from "./BusinessButton"
 import axios from "axios";
+import Business from '../../utils/Business';
+import Location from '../../utils/Location';
 
 const Search = () => {
     const location = useLocation(); // will need to get lat and long of user from this 
     const [msg, setMsg] = useState('');
-    const [businesses, setBusinesses] = useState(["Michael Angelo's Coffee House", "Ian's Pizza", "Fair Trade Coffee"])
+
+    let temp = new Business("Alumni Boardshop", "https://maps.google.com/?cid=2690018593773068425",
+        new Location("1150 Williamson St, Madison, WI 53703, USA", 43.0797895, -89.3764259));
+
+    const [businesses, setBusinesses] = useState([temp])
 
     axios.post('http://localhost:3000/search', {location})
             .then(function(response){
@@ -42,11 +48,11 @@ const Search = () => {
                 <a class="active" href="#home">Home</a>
             </div>
             <div class="sidebar">
-                <div className="buttonContainer">
+                <div className="businessButtonContainer">
                     {
                         businesses.map((business) => (
                             <BusinessButton
-                                text={business}
+                                text={business.name}
                             />
                         ))
                     }
@@ -54,7 +60,7 @@ const Search = () => {
             </div>
             <div style={{ height: '100vh', width: '100%'}}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "TO ADD" }}
+                    bootstrapURLKeys={{ key: "AIzaSyCxWIknbp4ZFgl8JbsVmYh-rJ_65cFttv0" }}
                     defaultCenter={{
                         lat: 43.0731,
                         lng: -89.4012
@@ -62,14 +68,13 @@ const Search = () => {
                     defaultZoom={15}
                 >
                     {
-                        // update with business objects
-                        // businesses.map((business) => (
-                        //     <Marker
-                        //         text={business.name}
-                        //         lat={business.geometry.location.lat}
-                        //         lng={business.geometry.location.lng}
-                        //     />
-                        // ))
+                        businesses.map((business) => (
+                            <Marker
+                                text={business.name}
+                                lat={business.location.lat}
+                                lng={business.location.long}
+                            />
+                        ))
                     }
                 </GoogleMapReact>
             </div>
