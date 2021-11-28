@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 const filters = ["Food", "Clothing", "Gift", "Services", "Other"];
 
 const Landing = () => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(''); // users location
     const [selectedFilters, setSelectedFilters] = useState([]);
 
     const history = useHistory();
