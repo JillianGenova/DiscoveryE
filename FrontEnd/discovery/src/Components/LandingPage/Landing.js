@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
 import "./Landing.css";
 import logo from "./Logo.png";
 import { useHistory } from "react-router-dom";
 import StyledButton from '../Button/StyledButton';
+import { TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +12,7 @@ const filters = ["Food", "Clothing", "Gift", "Services", "Other"];
 
 const Landing = () => {
     const [search, setSearch] = useState(''); // users location
-    const [selectedFilters, setSelectedFilters] = useState([]);
+    const [selectedFilters, setSelectedFilters] = useState([]); // THIS IS WHERE FILTERS ARE LOCATED
 
     const history = useHistory();
 
@@ -34,7 +34,6 @@ const Landing = () => {
             <img src={logo} />
             <div>
                 <TextField
-                    className="searchBox"
                     id="outlined-search"
                     label="Search field"
                     type="search"
@@ -56,7 +55,7 @@ const Landing = () => {
                                 onClick={() => history.push("/results", { params: search })}
                                 edge="end"
                             >
-                                <SearchIcon onClick={() => history.push("/results", { params: search })}/>
+                                <SearchIcon onClick={() => history.push("/results", { params: search })} />
                             </IconButton>
                         </InputAdornment>,
                     }}

@@ -14,9 +14,7 @@ def search_addr():
     output = ""
     print(dataDict['location']['state']['params'])
     businesses = location.locationFeatureDriver(dataDict['location']['state']['params'], ["food", "clothes"])
-    for i in businesses:
-        output = output + i[0] + " "
-    return output
+    return json.dumps(businesses)
 
 @app.route('/time')
 def get_current_time():

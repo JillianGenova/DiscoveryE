@@ -7,3 +7,33 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.businessButton:hover {
+    background-color: orange;
+    color: white;
+}
+
+.BusinessButton:hover .MarkerStyle {
+    width: 22px;
+    height: 22px;
+    background-color: rgb(182, 3, 182);
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 2;
+}
+
+.businessButton:hover .tooltiptext {
+  visibility: visible;
+}
+

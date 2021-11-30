@@ -1,7 +1,7 @@
 import React from 'react';
 import './BusinessButton.css';
 
-const BusinessButton = ({ text, onClick, checked }) => {
+const BusinessButton = ({ text }) => {
 
     return (
         <>
@@ -10,6 +10,7 @@ const BusinessButton = ({ text, onClick, checked }) => {
                 id={`button-${text}`}
             >
                 {text}
+                <span class="tooltiptext">Tooltip text</span>
             </button>
         </>
     )
