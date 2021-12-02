@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
-const filters = ["Food", "Clothing", "Gift", "Services", "Other"];
+const filters = ["food", "clothes", "gift", "services", "other"];
 
 const Landing = () => {
     const [search, setSearch] = useState(''); // users location
@@ -46,7 +46,7 @@ const Landing = () => {
                     onKeyDown={(keyEvent) => {
                         // add key in addition to enter
                         if (keyEvent.key === 'Enter') {
-                            history.push("/results", { params: search });
+                            history.push("/results", { params: search, selectedFilters });
                         }
                     }}
                     InputProps={{
