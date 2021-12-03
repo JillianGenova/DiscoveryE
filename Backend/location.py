@@ -76,13 +76,30 @@ def locationFeatureForOneCategory(N, address, category_1, selectedBusinessInfo):
     return selectedBusinessInfo
 
 
-def locationFeatureDriver(address, categories):
+def filterConverter(categories):
+    # Front End uses: "food", "clothes", "gift", "services", "other"
+    # Back End uses: "food", "clothes", "gift&store", "service", "leisure"
+    newCategories = []
+    for category in categories:
+        if (category == "gift"):
+            newCategories.append("gift&store")
+        elif (category == "services"):
+            newCategories.append("service")
+        elif (category == "other"):
+            newCategories.append("leisure")
+        else:
+            newCategories.append(category)
+    return newCategories
+
+
+def locationFeatureDriver(address, frontendCategories):
     # input: userAddress and businessCategories[],
     # where businessCategories = ["clothes", "food", "leisure", "service", "gift&store"] (choose one or multiple from this list),
     # eg. locationFeatureDriver("2 E Main St, Madison, WI 53702", ["leisure"])
     # output: [business0, business1, ..., business19],
     # where business = [name, formatted_address, business_status, url, vicinity, category_1, category_2, latitude, longitude, distance]
     # Note: distance is in miles
+    categories = filterConverter(frontendCategories)
     selectedBusinesses = []
     if len(categories) == 1:
         N = Num
@@ -104,4 +121,4 @@ def printer(list):
 
 if __name__ == "__main__":
     printer(locationFeatureDriver("2 E Main St, Madison, WI 53702", [
-        "food", "clothes"]))
+        "gift", "other", "services"]))
