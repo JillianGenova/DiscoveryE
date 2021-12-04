@@ -5,4 +5,4 @@
    * SQL: AiJing Wu  
    * Flask: Vishnu Yarlagadda, Casilda Lewis  
 * Mentors: Trace Carrasco, Cassidy Schneider, Tyler Luedtke
-* Google Drive - https://drive.google.com/drive/u/1/folders/1EFs6I5f5NRebexiiWXS5cgYHxBHfT-55
+* Google Drive - https://docs.google.com/document/d/1LL0Rm2FMLmUKb2-f4mWRpIl0ZmJhkJEV80MdCNXLkD0/edit?usp=sharing
