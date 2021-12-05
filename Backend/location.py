@@ -77,7 +77,7 @@ def locationFeatureForOneCategory(N, address, category_1, selectedBusinessInfo):
 
 
 def filterConverter(categories):
-    # Front End uses: "food", "clothes", "gift", "services", "other"
+    # Front End uses: "food", "clothes", "gift", "services", "leisure" (changed "other" to "leisure")
     # Back End uses: "food", "clothes", "gift&store", "service", "leisure"
     newCategories = []
     for category in categories:
@@ -121,4 +121,4 @@ def printer(list):
 
 if __name__ == "__main__":
     printer(locationFeatureDriver("2 E Main St, Madison, WI 53702", [
-        "gift", "other", "services"]))
+        "gift", "leisure", "services", "clothes", "food"]))
