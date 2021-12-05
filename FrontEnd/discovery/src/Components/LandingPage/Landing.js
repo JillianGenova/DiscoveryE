@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "./Landing.css";
-import logo from "./Logo.png";
+import logo_white from "./logo_white.png";
+import logo_orange from "./logo_orange.png"
+import background_image from "./background.png"
 import { useHistory } from "react-router-dom";
 import StyledButton from '../Button/StyledButton';
 import { TextField } from '@mui/material';
@@ -30,15 +32,20 @@ const Landing = () => {
     // use effect is checking when the state of the array (second param) is changed (run A if B changes)
 
     return (
-        <div className="homePage">
-            <img src={logo} />
+        <div className="homePage" style={{
+            backgroundImage: `url(${background_image})`, backgroundRepeat: "no-repeat", backgroundSize: "contain"
+        }}>
+            <div class="topnav">
+                <a class="active" href="">hi</a>
+            </div>
+            <img src={logo_white} className="image"/>
             <div>
                 <TextField
                     id="outlined-search"
-                    label="Search field"
+                    label="Enter your address"
                     type="search"
                     size="small"
-                    style={{ marginTop: '20px' }}
+                    style={{ marginTop: '10px', width:'50%'}}
                     value={search}
                     onChange={(keyEvent) => {
                         setSearch(keyEvent.target.value);

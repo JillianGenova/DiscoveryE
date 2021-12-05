@@ -9,8 +9,11 @@ const BusinessButton = ({ text }) => {
                 className="businessButton"
                 id={`button-${text}`}
             >
-                {text}
-                <span class="tooltiptext">Tooltip text</span>
+                <span> 
+                    {text}
+                    <br />
+                    {text}
+                </span>
             </button>
         </>
     )
