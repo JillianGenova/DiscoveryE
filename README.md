@@ -1,5 +1,5 @@
 # DiscoveryE -- Connect users to small businesses  
-* FrontEnd (React): Jillian Genova, AiJing Wu  
+* FrontEnd (React): Jillian Genova
 * BackEnd  
    * Google Map: Casilda Lewis  
    * SQL: AiJing Wu  
