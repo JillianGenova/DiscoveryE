@@ -2,28 +2,69 @@
 .topnav {
   background-color: orange;
   overflow: hidden;
+  height: 55px;
+  display: flex;
+  align-items: center;
 }
 
-/* Style the links inside the navigation bar */
-.topnav a {
+.addressBar {
+  border-radius: 10pt;
+  background-color: orange;
+  color: white;
+  border: none;
+  font-family: "Verdana";
+  font-size: 14px;
+  height: 35px;
+  margin-left: 10px;
+}
+
+.searchAgain {
+  border-radius: 10pt;
+  background-color: orange;
+  color: white;
+  border-color: rgb(251, 176, 35);
+  font-family: "Verdana";
+  font-size: 12px;
+  height: 40px;
+  margin-left: 10px;
+  flex-direction: row;
+}
+
+.searchAgain:hover {
+  border-radius: 10pt;
+  background-color: rgb(255, 185, 55);
+  color: rgb(20, 20, 20);
+}
+
+.homeButton {
+  margin-left: auto;
+  border-radius: 10pt;
+  background-color: orange;
+  color: white;
+  border-color: rgb(251, 176, 35);
+  font-family: "Verdana";
+  font-size: 14px;
+  height: 40px;
+}
+
+.homeButton:hover {
+  background-color: rgb(255, 185, 55);
+  color: rgb(20, 20, 20);
+}
+
+.orangeImage {
+  height: 42px;
+  width: auto;
+  margin-left: 10px;
+  margin-right: 5px;
+  opacity: .75;
   float: right;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
 }
 
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 300px;
+  width: 350px;
   background-color: #f1f1f1;
   position: absolute;
   height: 100%;

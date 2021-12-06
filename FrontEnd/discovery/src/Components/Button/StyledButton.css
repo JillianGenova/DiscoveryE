@@ -1,19 +1,33 @@
 .unselectedClass {
     background-color: white;
     color:orange;
-    border: none;
+    border-color: orange;
+    border-style: solid;
     padding: 8px 16px;
     text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
     display: inline-block;
     font-size: 16px;
+    border-radius: 10pt;
+
+    box-shadow: inset 0 0 0 0 orange;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+}
+
+.unselectedClass:hover {
+    background-color: rgb(255, 186, 57);
+    color: white;
 }
 
 .selectedClass {
-    background-color: orange;
+    background-color: rgb(255, 186, 57);
+    border-color: orange;
     color:white;
-    border: none;
     padding: 8px 16px;
     text-align: center;
     display: inline-block;
     font-size: 16px;
+    border-radius: 10pt;
 }

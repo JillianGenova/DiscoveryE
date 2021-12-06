@@ -1,16 +1,20 @@
 import React from 'react';
 import './BusinessButton.css';
 
-const BusinessButton = ({ text }) => {
+const BusinessButton = ({ business }) => {
 
     return (
         <>
             <button
                 className="businessButton"
-                id={`button-${text}`}
+                id={`button-${business.name}`}
             >
-                {text}
-                <span class="tooltiptext">Tooltip text</span>
+                <span className='businessName'> {business.name} </span>
+                <br />
+                <span className='businessAddress'> {business.location.address} </span>
+                <br />
+                <a className='businessUrl' href={business.url}> Website </a>
+                
             </button>
         </>
     )
