@@ -2,10 +2,10 @@
     background-color: white;
     color:orange;
     border: none;
-    padding: 25px 40px;
+    padding: 5px;
     text-align: center;
     display: inline-block;
-    font-size: 18px;
+    font-size: 20px;
     font-family: "Verdana";
     white-space: nowrap;
 
@@ -16,9 +16,33 @@
 
 }
 
+.businessUrl {
+    visibility: hidden;
+    color: rgb(72, 72, 72);
+    font-size: 12px;
+    font-family: "Verdana";
+    overflow-wrap: break-word;
+}
+
+.businessAddress {
+    visibility: hidden;
+    color: rgb(72, 72, 72);
+    font-size: 12px;
+    font-family: "Verdana";
+}
+
 .businessButton:hover {
     color: white;
     box-shadow: inset 0 100px 0 0 orange;
+    font-size: 18px;
+}
+
+.businessButton:hover .businessAddress {
+    visibility: visible;
+}
+
+.businessButton:hover .businessUrl {
+    visibility: visible;
 }
 
 .BusinessButton:hover .MarkerStyle {
@@ -26,8 +50,3 @@
     height: 22px;
     background-color: rgb(182, 3, 182);
 }
-
-.businessButton:hover .tooltiptext {
-  visibility: visible;
-}
-

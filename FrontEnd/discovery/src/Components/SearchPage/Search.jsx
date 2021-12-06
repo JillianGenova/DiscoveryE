@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { useLocation, useHistory } from "react-router-dom";
+import logo_orange from "../LandingPage/logo_orange.png"
+import { TextField } from '@mui/material';
 import "./Search.css"
 import Marker from "../Map/Marker/Marker.jsx"
 import BusinessButton from "./BusinessButton"
 import getBusinesses from '../../api/getBusinesses';
+import { Box } from '@mui/system';
 
 const Search = () => {
     const location = useLocation(); // will need to get lat and long of user from this 
-
-    // TODO
-    const [search, setSearch] = useState(''); // users new location
     const history = useHistory();
 
     useEffect(() => {
@@ -22,7 +22,24 @@ const Search = () => {
     return (
         <>
             <div class="topnav">
-                <a class="active" href="">hi</a>
+                <button className='addressBar'>
+                    Showing results for: {location.state.params}
+                </button>
+                <button 
+                    className='searchAgain'
+                    onClick={() => history.push("/")}
+                >
+                    Change
+                    <br/>
+                    Address
+                </button>
+                <button 
+                    className='homeButton'
+                    onClick={() => history.push("/")}
+                >
+                    home
+                </button>
+                <img src={logo_orange} className="orangeImage"/>
             </div>
             <div class="sidebar">
                 <div className="businessButtonContainer">
@@ -30,7 +47,7 @@ const Search = () => {
                         businesses.length > 0 && 
                         businesses.map((business) => (
                             <BusinessButton  
-                                text={business.name}
+                                business={business}
                             />
                         ))
                     }

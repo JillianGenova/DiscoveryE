@@ -33,10 +33,8 @@ const Landing = () => {
 
     return (
         <div className="homePage" style={{
-            backgroundImage: `url(${background_image})`, backgroundRepeat: "no-repeat", backgroundSize: "contain"
-        }}>
+            backgroundImage: `url(${background_image})`, backgroundRepeat: "no-repeat", backgroundSize: "contain" }}>
             <div class="topnav">
-                <a class="active" href="">hi</a>
             </div>
             <img src={logo_white} className="image"/>
             <div>
@@ -79,6 +77,8 @@ const Landing = () => {
                         />
                     ))
                 }
+            </div>
+            <div className='pageBottom' >
             </div>
         </div>
     );
