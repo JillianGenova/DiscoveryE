@@ -9,5 +9,5 @@
 * Presentation - https://docs.google.com/presentation/d/1PQeEBGoz6gL2497YPpylir_7-vSQyOw-bWSQVM_9Qto/edit?usp=sharing
 
 To run:
-start flask server: npm run start-api
-start react: npm start
+* start flask server: npm run start-api
+* start react: npm start
